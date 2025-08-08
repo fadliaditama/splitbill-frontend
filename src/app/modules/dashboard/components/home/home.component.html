@@ -1,1 +1,99 @@
-<a href="/auth/login">Login</a>
+<div class="min-h-screen bg-gray-50">
+    <header class="bg-white shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-between items-center">
+            <h1 class="text-2xl font-bold text-gray-900">
+                SplitBill Dashboard
+            </h1>
+            <button (click)="logout()" class="text-sm font-medium text-indigo-600 hover:text-indigo-500">
+                Logout
+            </button>
+        </div>
+    </header>
+
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+
+            <div class="lg:col-span-2 space-y-8">
+
+                <section class="bg-white p-6 rounded-lg shadow">
+                    <h2 class="text-xl font-semibold mb-4">Unggah Struk Baru</h2>
+                    <div class="upload-area border-2 border-dashed border-gray-300 rounded-lg p-8 text-center">
+                        <input type="file" (change)="onFileSelected($event)" accept="image/*" class="hidden" #fileInput>
+                        <button (click)="fileInput.click()"
+                            class="bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded-lg transition duration-200">
+                            Pilih Gambar
+                        </button>
+                        <p *ngIf="selectedFile" class="mt-4 text-gray-600">File dipilih: {{ selectedFile.name }}</p>
+                        <p *ngIf="!selectedFile" class="mt-4 text-gray-500">atau seret dan lepas file di sini</p>
+                    </div>
+
+                    <div *ngIf="imagePreview" class="mt-6">
+                        <h3 class="font-semibold text-gray-700 mb-2">Pratinjau Gambar:</h3>
+                        <div class="flex justify-center p-2 border border-gray-200 rounded-lg">
+                            <img [src]="imagePreview" alt="Pratinjau Struk" class="max-h-80 rounded-md">
+                        </div>
+                    </div>
+
+                    <div class="mt-4 text-right">
+                        <button (click)="onUpload()" [disabled]="!selectedFile || isLoading"
+                            class="w-full sm:w-auto bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-6 rounded-lg transition duration-200 disabled:bg-gray-400 disabled:cursor-not-allowed">
+                            {{ isLoading ? 'Memproses...' : 'Proses Struk' }}
+                        </button>
+                    </div>
+                </section>
+
+                <section *ngIf="isLoading || uploadResult">
+                    <div *ngIf="isLoading" class="bg-white p-6 rounded-lg shadow text-center">
+                        <p class="text-lg font-medium text-gray-700">Menganalisis Struk Anda... 🤖</p>
+                        <p class="text-gray-500 mt-2">AI sedang bekerja, mohon tunggu sebentar.</p>
+                    </div>
+
+                    <div *ngIf="uploadResult" class="bg-white p-6 rounded-lg shadow animate-fade-in">
+                        <h3 class="text-xl font-semibold mb-4">Hasil Pemindaian</h3>
+                        <div class="result-summary mb-4 p-4 bg-gray-50 rounded-md">
+                            <span class="font-bold text-lg">Total Belanja:</span>
+                            <span class="font-bold text-xl text-indigo-600 ml-2">Rp {{ uploadResult.total | number
+                                }}</span>
+                        </div>
+                        <div class="table-container">
+                            <table class="w-full text-left">
+                                <thead>
+                                    <tr class="border-b">
+                                        <th class="p-2">Qty</th>
+                                        <th class="p-2">Nama Barang</th>
+                                        <th class="p-2 text-right">Harga</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let item of uploadResult.items" class="border-b last:border-b-0">
+                                        <td class="p-2 w-16">{{ item.quantity }}x</td>
+                                        <td class="p-2">{{ item.name }}</td>
+                                        <td class="p-2 text-right font-medium">{{ item.price | number }}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <details class="mt-4">
+                            <summary class="cursor-pointer text-sm text-gray-500 hover:underline">
+                                Lihat Teks Mentah dari OCR
+                            </summary>
+                            <pre
+                                class="bg-gray-100 p-4 rounded-md mt-2 text-xs text-gray-600">{{ uploadResult.rawText }}</pre>
+                        </details>
+                    </div>
+                </section>
+            </div>
+
+            <div class="lg:col-span-1">
+                <aside class="bg-white p-6 rounded-lg shadow h-full">
+                    <h2 class="text-xl font-semibold mb-4">Riwayat Transaksi</h2>
+                    <div class="transaction-list space-y-4">
+                        <p class="text-center text-gray-400 pt-4">Fitur riwayat akan datang.</p>
+                    </div>
+                </aside>
+            </div>
+
+        </div>
+    </main>
+</div>

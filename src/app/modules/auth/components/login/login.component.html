@@ -1,9 +1,44 @@
-<div class="container">
-    <h2>Login</h2>
-    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
-        <input formControlName="email" type="email" placeholder="Email" />
-        <input formControlName="password" type="password" placeholder="Password" />
-        <button type="submit" [disabled]="loginForm.invalid">Login</button>
-        <p *ngIf="error" class="error">{{ error }}</p>
-    </form>
+<div class="min-h-screen bg-gray-100 text-gray-800 flex justify-center items-center p-4">
+    <div
+        class="w-full max-w-4xl h-auto md:h-auto md:max-h-[600px] bg-white rounded-2xl shadow-xl flex flex-col md:flex-row overflow-hidden">
+
+        <div
+            class="hidden md:flex w-full md:w-1/2 bg-gradient-to-tr from-blue-600 to-indigo-800 p-12 flex-col justify-center items-center text-white">
+            <h1 class="font-bold text-4xl mb-4">SplitBill</h1>
+            <p class="text-center text-indigo-100">Bagi tagihan jadi lebih mudah, cepat, dan akurat. Cukup unggah struk
+                Anda dan biarkan AI yang bekerja.</p>
+        </div>
+
+        <div class="w-full md:w-1/2 p-8 md:p-12 flex flex-col justify-center">
+            <h2 class="text-2xl md:text-3xl font-bold text-gray-900 mb-4">Selamat Datang!</h2>
+            <p class="text-gray-600 mb-8">Silakan masuk untuk melanjutkan.</p>
+
+            <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+                <div class="mb-5">
+                    <label for="email" class="block text-gray-700 font-semibold mb-2">Email</label>
+                    <input id="email" formControlName="email" type="email" placeholder="contoh@email.com"
+                        class="w-full px-4 py-3 rounded-lg bg-gray-200 border border-gray-200 focus:border-blue-500 focus:bg-white focus:outline-none transition duration-200" />
+                </div>
+
+                <div class="mb-5">
+                    <label for="password" class="block text-gray-700 font-semibold mb-2">Password</label>
+                    <input id="password" formControlName="password" type="password" placeholder="••••••••"
+                        class="w-full px-4 py-3 rounded-lg bg-gray-200 border border-gray-200 focus:border-blue-500 focus:bg-white focus:outline-none transition duration-200" />
+                </div>
+
+                <button type="submit" [disabled]="loginForm.invalid"
+                    class="w-full bg-indigo-600 hover:bg-indigo-700 focus:ring-4 focus:ring-indigo-300 text-white font-bold py-3 px-4 rounded-lg transition duration-200 disabled:bg-gray-400 disabled:cursor-not-allowed">
+                    Login
+                </button>
+
+                <p *ngIf="error" class="text-red-500 text-center mt-4">{{ error }}</p>
+            </form>
+
+            <div class="mt-8 text-center">
+                <p class="text-gray-600">Belum punya akun? <a href="#"
+                        class="text-indigo-600 hover:underline font-semibold">Daftar di sini</a></p>
+            </div>
+        </div>
+
+    </div>
 </div>
