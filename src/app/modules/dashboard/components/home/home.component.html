@@ -94,13 +94,17 @@
                     </div>
 
                     <div *ngIf="!isLoadingHistory && billsHistory.length > 0" class="transaction-list space-y-4">
-                        <a *ngFor="let bill of billsHistory" [routerLink]="['/dashboard/history', bill.id]"
-                            class="flex justify-between items-center p-3 bg-gray-50 rounded-md hover:bg-gray-100 cursor-pointer">
-                            <div>
-                                <p class="font-medium">{{bill.storeName}}</p>
-                                <p class="text-sm text-gray-500">{{ bill.purchaseDate | date:'longDate' }}</p>
+                        <a *ngFor="let bill of billsHistory" 
+                            [routerLink]="bill.status === 'COMPLETED' ? ['/dashboard/history', bill.id] : null"
+                            [class.cursor-pointer]="bill.status === 'COMPLETED'"
+                            [class.cursor-not-allowed]="bill.status !== 'COMPLETED'"
+                            class="flex items-center p-3 bg-gray-50 rounded-lg hover:bg-gray-100 transition duration-150">
+                            
+                            <div class="ml-4 text-xs font-bold text-right">
+                            <span *ngIf="bill.status === 'COMPLETED'" class="text-green-500">SELESAI</span>
+                            <span *ngIf="bill.status === 'PROCESSING'" class="text-blue-500">MEMPROSES...</span>
+                            <span *ngIf="bill.status === 'FAILED'" class="text-red-500">GAGAL</span>
                             </div>
-                            <p class="font-bold text-gray-800">Rp {{ bill.total | number }}</p>
                         </a>
                     </div>
 
