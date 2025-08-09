@@ -20,6 +20,14 @@ export class AuthService {
     );
   }
 
+  register(credentials: any): Observable<any> {
+    return this.http.post<{ accessToken: string }>(`${this.apiUrl}/register`, credentials).pipe(
+      tap(response => {
+        localStorage.setItem('access_token', response.accessToken);
+      })
+    );
+  }
+
   getToken(): string | null {
     return localStorage.getItem('access_token');
   }

@@ -1,0 +1,64 @@
+<div class="min-h-screen bg-gray-100 text-gray-800 flex justify-center items-center p-4">
+    <div class="w-full max-w-md bg-white rounded-2xl shadow-xl p-8 md:p-12">
+      
+      <div class="text-center mb-8">
+        <h1 class="text-3xl font-bold text-gray-900">Buat Akun Baru</h1>
+        <p class="text-gray-600 mt-2">Selamat datang di Beresin Bon!</p>
+      </div>
+  
+      <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+        <div class="space-y-5">
+          
+          <div>
+            <label for="email" class="block text-gray-700 font-semibold mb-2">Email</label>
+            <input 
+              id="email"
+              formControlName="email" 
+              type="email" 
+              placeholder="contoh@email.com"
+              class="w-full px-4 py-3 rounded-lg bg-gray-200 border border-gray-200 focus:border-blue-500 focus:bg-white focus:outline-none transition duration-200"
+            />
+            </div>
+  
+          <div>
+            <label for="password" class="block text-gray-700 font-semibold mb-2">Password</label>
+            <input 
+              id="password"
+              formControlName="password" 
+              type="password" 
+              placeholder="Minimal 8 karakter"
+              class="w-full px-4 py-3 rounded-lg bg-gray-200 border border-gray-200 focus:border-blue-500 focus:bg-white focus:outline-none transition duration-200"
+            />
+          </div>
+  
+          <div>
+            <label for="confirmPassword" class="block text-gray-700 font-semibold mb-2">Konfirmasi Password</label>
+            <input 
+              id="confirmPassword"
+              formControlName="confirmPassword" 
+              type="password" 
+              placeholder="Ulangi password Anda"
+              class="w-full px-4 py-3 rounded-lg bg-gray-200 border border-gray-200 focus:border-blue-500 focus:bg-white focus:outline-none transition duration-200"
+            />
+          </div>
+        
+        </div>
+  
+        <div class="mt-8">
+          <button 
+            type="submit" 
+            [disabled]="registerForm.invalid"
+            class="w-full bg-indigo-600 hover:bg-indigo-700 focus:ring-4 focus:ring-indigo-300 text-white font-bold py-3 px-4 rounded-lg transition duration-200 disabled:bg-gray-400 disabled:cursor-not-allowed">
+            Daftar
+          </button>
+        </div>
+  
+        <p *ngIf="error" class="text-red-500 text-center mt-4">{{ error }}</p>
+      </form>
+      
+      <div class="mt-8 text-center">
+        <p class="text-gray-600">Sudah punya akun? <a routerLink="/auth/login" class="text-indigo-600 hover:underline font-semibold">Masuk di sini</a></p>
+      </div>
+  
+    </div>
+  </div>
