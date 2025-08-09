@@ -22,7 +22,6 @@ export class HistoryDetailComponent implements OnInit {
       this.dashboardService.getBillById(billId).subscribe({
         next: (data) => {
           this.bill = data;
-          // Ambil nama partisipan dari kunci objek splitDetails
           if (data.splitDetails) {
             this.participantNames = Object.keys(data.splitDetails);
           }

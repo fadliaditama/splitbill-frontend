@@ -6,8 +6,7 @@ interface Item {
   name: string;
   price: number;
   quantity: number;
-  // Properti baru untuk melacak siapa saja yang ikut patungan item ini
-  participants: string[]; 
+  participants: string[];
 }
 
 interface Bill {
@@ -17,9 +16,9 @@ interface Bill {
   total: number;
   storeName: string;
   purchaseDate: string;
-  splitDetails?: any;
   tax?: number;
   serviceCharge?: number;
+  splitDetails?: { [key: string]: { total: number; items: any[] } };
 }
 
 @Component({
@@ -55,6 +54,9 @@ export class SplitDetailComponent implements OnInit {
 
           this.tax = data.tax || 0;
           this.serviceCharge = data.serviceCharge || 0;
+
+          this.reconstructStateFromHistory(data);
+
           this.isLoading = false;
         },
         error: (err) => {
@@ -268,6 +270,37 @@ export class SplitDetailComponent implements OnInit {
     } else {
       alert('Nama atau harga tidak valid.');
     }
+  }
+
+  reconstructStateFromHistory(bill: Bill): void {
+    // Simpan hasil pembagian ke variabel baru setelah pengecekan
+    const savedSplitDetails = bill.splitDetails;
+
+    // Jika tidak ada detail pembagian sebelumnya, inisialisasi seperti biasa
+    if (!savedSplitDetails) {
+      bill.items.forEach(item => item.participants = []);
+      return;
+    }
+
+    // Gunakan variabel 'savedSplitDetails' yang dijamin ada
+    this.participants = Object.keys(savedSplitDetails);
+    
+    const participantItemsMap: { [key: string]: string[] } = {};
+    this.participants.forEach(name => {
+      // Sekarang TypeScript tahu 'savedSplitDetails' tidak mungkin undefined
+      participantItemsMap[name] = savedSplitDetails[name].items.map(item => item.name);
+    });
+
+    bill.items.forEach(item => {
+      item.participants = [];
+      this.participants.forEach(name => {
+        if (participantItemsMap[name].includes(item.name)) {
+          item.participants.push(name);
+        }
+      });
+    });
+
+    this.calculateSummary();
   }
 
 }
