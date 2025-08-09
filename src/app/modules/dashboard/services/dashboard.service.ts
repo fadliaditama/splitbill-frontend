@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class DashboardService {
-  private apiUrl = environment.apiUrl + '/ocr';
+  private apiUrl = environment.apiUrl + 'ocr';
 
 
   constructor(private http: HttpClient) { }
