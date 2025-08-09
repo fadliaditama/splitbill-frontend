@@ -38,4 +38,19 @@ export class HistoryDetailComponent implements OnInit {
     }
   }
 
+  getAdditionalCostsShare(participantName: string): number {
+    if (!this.bill || !this.bill.splitDetails || !this.bill.splitDetails[participantName]) {
+      return 0;
+    }
+
+    const participantData = this.bill.splitDetails[participantName];
+    const itemsTotal = participantData.items.reduce(
+      (sum: number, item: { paidAmount: number }) => sum + item.paidAmount, 
+      0
+    );
+    
+    // Porsi biaya tambahan adalah total tagihan orang tsb dikurangi total itemnya
+    return participantData.total - itemsTotal;
+  }
+
 }
