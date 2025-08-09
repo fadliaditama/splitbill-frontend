@@ -73,11 +73,7 @@ export class HomeComponent implements OnInit {
           rawText: result.rawText
         };
         this.isLoading = false;
-        this.selectedFile = null;
-        this.imagePreview = null;
-        this.loadHistory();
-        this.router.navigate(['/dashboard/split', result.id]);
-        alert(result.message);
+        this.router.navigate(['/dashboard/split', result.id]); 
       },
       error: (err) => {
         console.error('Upload failed:', err);
