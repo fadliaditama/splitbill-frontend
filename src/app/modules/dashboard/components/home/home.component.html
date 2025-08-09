@@ -94,14 +94,14 @@
                     </div>
 
                     <div *ngIf="!isLoadingHistory && billsHistory.length > 0" class="transaction-list space-y-4">
-                        <div *ngFor="let bill of billsHistory"
+                        <a *ngFor="let bill of billsHistory" [routerLink]="['/dashboard/history', bill.id]"
                             class="flex justify-between items-center p-3 bg-gray-50 rounded-md hover:bg-gray-100 cursor-pointer">
                             <div>
                                 <p class="font-medium">{{bill.storeName}}</p>
                                 <p class="text-sm text-gray-500">{{ bill.purchaseDate | date:'longDate' }}</p>
                             </div>
                             <p class="font-bold text-gray-800">Rp {{ bill.total | number }}</p>
-                        </div>
+                        </a>
                     </div>
 
                     <div *ngIf="!isLoadingHistory && billsHistory.length === 0" class="text-center text-gray-400 pt-4">

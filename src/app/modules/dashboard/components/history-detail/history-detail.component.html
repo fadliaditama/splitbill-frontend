@@ -1,0 +1,55 @@
+<div class="min-h-screen bg-gray-100 p-4 sm:p-6 lg:p-8">
+    <div class.bind="isLoading ? 'text-center' : ''">
+      <div *ngIf="isLoading">Memuat detail riwayat...</div>
+    </div>
+  
+    <div *ngIf="!isLoading && bill" class="grid grid-cols-1 lg:grid-cols-2 gap-8 max-w-7xl mx-auto">
+      
+      <aside class="bg-white p-4 rounded-lg shadow-md self-start">
+        <div class="flex justify-between items-center mb-4">
+          <h2 class="text-xl font-bold">Struk Asli</h2>
+          <a routerLink="/dashboard" class="text-sm font-medium text-indigo-600 hover:text-indigo-500">&larr; Kembali ke Dashboard</a>
+        </div>
+        <div class="image-container overflow-auto max-h-[80vh]">
+          <img [src]="bill.imageUrl" alt="Gambar Struk" class="w-full h-auto rounded">
+        </div>
+      </aside>
+  
+      <main class="bg-white p-6 rounded-lg shadow-md space-y-6">
+        
+        <header>
+          <h1 class="text-2xl font-bold text-gray-900">{{ bill.storeName || 'Detail Transaksi' }}</h1>
+          <p class="text-gray-500">{{ bill.purchaseDate | date:'fullDate' }}</p>
+        </header>
+  
+        <section *ngIf="bill.splitDetails && participantNames.length > 0">
+          <h3 class="text-lg font-semibold border-b pb-2 mb-4">Hasil Pembagian</h3>
+          <div class="space-y-6">
+            
+            <div *ngFor="let name of participantNames" class="participant-card border border-gray-200 p-4 rounded-lg">
+              <div class="flex justify-between items-center mb-3">
+                <h4 class="text-xl font-semibold text-indigo-700">{{ name }}</h4>
+                <p class="text-xl font-bold text-green-600">Rp {{ bill.splitDetails[name].total | number:'1.0-0' }}</p>
+              </div>
+              
+              <ul class="text-sm space-y-2">
+                <li *ngFor="let item of bill.splitDetails[name].items" class="flex justify-between text-gray-600 border-t pt-2">
+                  <span>{{ item.name }}</span>
+                  <span class="font-medium">Rp {{ item.paidAmount | number:'1.0-0' }}</span>
+                </li>
+              </ul>
+            </div>
+  
+          </div>
+        </section>
+  
+        <section *ngIf="!bill.splitDetails" class="text-center text-gray-500 py-8">
+          <p>Tagihan ini belum dibagi.</p>
+          <a [routerLink]="['/dashboard/split', bill.id]" class="mt-4 inline-block bg-indigo-600 text-white font-bold py-2 px-4 rounded-lg hover:bg-indigo-700">
+            Bagi Tagihan Sekarang
+          </a>
+        </section>
+  
+      </main>
+    </div>
+  </div>

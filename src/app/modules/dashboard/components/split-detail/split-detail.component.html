@@ -1,0 +1,80 @@
+<div class="min-h-screen bg-gray-100 p-4 sm:p-6 lg:p-8">
+    <div *ngIf="isLoading" class="text-center">Memuat detail tagihan...</div>
+  
+    <div *ngIf="!isLoading && bill" class="grid grid-cols-1 lg:grid-cols-2 gap-8 max-w-7xl mx-auto">
+      
+      <aside class="bg-white p-4 rounded-lg shadow-md sticky top-8 self-start">
+        <h2 class="text-xl font-bold mb-4">Pratinjau Struk</h2>
+        <div class="image-container overflow-auto max-h-[80vh]">
+          <img [src]="bill.imageUrl" alt="Gambar Struk" class="w-full h-auto rounded">
+        </div>
+      </aside>
+  
+      <main class="bg-white p-6 rounded-lg shadow-md space-y-8">
+        
+        <section>
+          <h3 class="text-lg font-semibold border-b pb-2 mb-4">Anggota Patungan</h3>
+          <div class="flex flex-wrap gap-2 mb-4">
+            <span *ngFor="let name of participants" class="flex items-center bg-indigo-100 text-indigo-800 text-sm font-medium px-3 py-1 rounded-full">
+              {{ name }}
+              <button (click)="removeParticipant(name)" class="ml-2 text-indigo-500 hover:text-indigo-800">&times;</button>
+            </span>
+          </div>
+          <div class="flex gap-2">
+            <input 
+              [(ngModel)]="newParticipantName"
+              (keyup.enter)="addParticipant()"
+              type="text" 
+              placeholder="Tambah nama teman..."
+              class="flex-grow px-4 py-2 rounded-lg bg-gray-100 border border-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+            >
+            <button (click)="addParticipant()" class="bg-indigo-600 text-white px-4 py-2 rounded-lg font-semibold hover:bg-indigo-700">Tambah</button>
+          </div>
+        </section>
+  
+        <section *ngIf="participants.length > 0">
+          <h3 class="text-lg font-semibold border-b pb-2 mb-4">Alokasikan Belanjaan</h3>
+          <div class="space-y-4 max-h-[40vh] overflow-y-auto pr-2">
+            <div *ngFor="let item of bill.items" class="p-3 border rounded-lg">
+              <div class="flex justify-between items-center">
+                <span class="font-medium">{{ item.name }}</span>
+                <span class="font-bold">Rp {{ item.price | number }}</span>
+              </div>
+              <div class="flex flex-wrap gap-x-4 gap-y-2 mt-3">
+                <label *ngFor="let name of participants" class="flex items-center space-x-2 cursor-pointer">
+                  <input 
+                    type="checkbox" 
+                    [checked]="isParticipantInItem(item, name)"
+                    (change)="toggleItemParticipant(item, name)"
+                    class="h-4 w-4 rounded text-indigo-600 focus:ring-indigo-500"
+                  >
+                  <span class="text-sm">{{ name }}</span>
+                </label>
+              </div>
+            </div>
+          </div>
+        </section>
+  
+        <section *ngIf="participants.length > 0">
+          <h3 class="text-lg font-semibold border-b pb-2 mb-4">Ringkasan Tagihan</h3>
+          <div class="space-y-2">
+            <div *ngFor="let name of participants" class="flex justify-between items-center bg-gray-50 p-3 rounded-md">
+              <span class="font-medium">{{ name }}</span>
+              <span class="font-bold text-lg text-green-600">Rp {{ summary[name] | number:'1.0-0' }}</span>
+            </div>
+          </div>
+          <div class="flex justify-between items-center bg-gray-800 text-white p-3 rounded-md mt-4">
+            <span class="font-bold">TOTAL</span>
+            <span class="font-bold text-xl">Rp {{ bill.total | number }}</span>
+          </div>
+        </section>
+        
+        <div class="pt-6 border-t">
+          <button (click)="saveSplit()" [disabled]="participants.length === 0" class="w-full bg-green-500 hover:bg-green-600 text-white font-bold py-3 px-4 rounded-lg transition duration-200 disabled:bg-gray-400">
+            Simpan Hasil Pembagian
+          </button>
+        </div>
+  
+      </main>
+    </div>
+  </div>

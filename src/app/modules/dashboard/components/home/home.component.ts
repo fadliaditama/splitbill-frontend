@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from 'src/app/core/services/auth.service';
 import { DashboardService } from '../../services/dashboard.service'; // Pastikan nama service ini benar
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-home',
@@ -18,7 +19,8 @@ export class HomeComponent implements OnInit {
 
   constructor(
     private dashboardService: DashboardService,
-    private authService: AuthService
+    private authService: AuthService,
+    private router: Router
   ) { }
 
   ngOnInit(): void {
@@ -71,7 +73,7 @@ export class HomeComponent implements OnInit {
           rawText: result.rawText
         };
         this.isLoading = false;
-        this.loadHistory();
+        this.router.navigate(['/dashboard/split', result.id]); 
       },
       error: (err) => {
         console.error('Upload failed:', err);

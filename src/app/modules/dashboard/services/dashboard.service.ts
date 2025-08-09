@@ -15,6 +15,14 @@ export class DashboardService {
     return this.http.get<any[]>(`${this.apiUrl}/my-bills`);
   }
 
+  getBillById(id: string): Observable<any> {
+    return this.http.get(`${this.apiUrl}/${id}`);
+  }
+
+  saveSplitDetails(id: string, details: any): Observable<any> {
+      return this.http.patch(`${this.apiUrl}/split/${id}`, details);
+  }
+
   uploadReceipt(file: File): Observable<any> {
     const formData = new FormData();
     formData.append('file', file, file.name);
