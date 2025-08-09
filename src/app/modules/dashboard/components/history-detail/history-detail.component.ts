@@ -52,4 +52,25 @@ export class HistoryDetailComponent implements OnInit {
     return participantData.total - itemsTotal;
   }
 
+  onDelete(): void {
+    if (!this.bill) return;
+
+    const isConfirmed = confirm('Apakah Anda yakin ingin menghapus transaksi ini? Aksi ini tidak bisa dibatalkan.');
+
+    if (isConfirmed) {
+      this.isLoading = true; // Tampilkan loading
+      this.dashboardService.deleteBill(this.bill.id).subscribe({
+        next: () => {
+          alert('Transaksi berhasil dihapus.');
+          this.router.navigate(['/dashboard']); // Kembali ke dashboard
+        },
+        error: (err) => {
+          this.isLoading = false;
+          console.error('Gagal menghapus:', err);
+          alert('Gagal menghapus transaksi.');
+        }
+      });
+    }
+  }
+
 }

@@ -34,4 +34,8 @@ export class DashboardService {
     // Interceptor akan otomatis menambahkan token Authorization
     return this.http.post(`${this.apiUrl}/upload`, formData);
   }
+
+  deleteBill(id: string): Observable<any> {
+    return this.http.delete(`${this.apiUrl}/${id}`);
+  }
 }
