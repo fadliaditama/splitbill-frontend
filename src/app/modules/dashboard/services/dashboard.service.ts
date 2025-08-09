@@ -11,6 +11,10 @@ export class DashboardService {
 
   constructor(private http: HttpClient) { }
 
+  getMyBills(): Observable<any[]> {
+    return this.http.get<any[]>(`${this.apiUrl}/my-bills`);
+  }
+
   uploadReceipt(file: File): Observable<any> {
     const formData = new FormData();
     formData.append('file', file, file.name);

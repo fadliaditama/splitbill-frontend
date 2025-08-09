@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { AuthService } from 'src/app/core/services/auth.service';
 import { DashboardService } from '../../services/dashboard.service'; // Pastikan nama service ini benar
 
@@ -7,16 +7,38 @@ import { DashboardService } from '../../services/dashboard.service'; // Pastikan
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss']
 })
-export class HomeComponent {
+export class HomeComponent implements OnInit {
   selectedFile: File | null = null;
   uploadResult: any = null;
   isLoading = false;
-  imagePreview: string | ArrayBuffer | null = null; // <-- 1. Tambahkan properti ini
+  imagePreview: string | ArrayBuffer | null = null;
+
+  billsHistory: any[] = [];
+  isLoadingHistory = true;
 
   constructor(
     private dashboardService: DashboardService,
     private authService: AuthService
   ) { }
+
+  ngOnInit(): void {
+    this.loadHistory();
+  }
+
+  loadHistory(): void {
+    this.isLoadingHistory = true;
+    this.dashboardService.getMyBills().subscribe({
+      next: (history) => {
+        this.billsHistory = history;
+        this.isLoadingHistory = false;
+      },
+      error: (err) => {
+        console.error('Gagal memuat riwayat:', err);
+        this.isLoadingHistory = false;
+        alert('Gagal memuat riwayat transaksi.');
+      }
+    });
+  }
 
   onFileSelected(event: any): void {
     const file = event.target.files[0];
@@ -49,6 +71,7 @@ export class HomeComponent {
           rawText: result.rawText
         };
         this.isLoading = false;
+        this.loadHistory();
       },
       error: (err) => {
         console.error('Upload failed:', err);
