@@ -1,73 +1,126 @@
-# Nobon - Aplikasi Split Bill Cerdas
+# BonBon Frontend
 
-Nobon adalah sebuah Progressive Web App (PWA) yang dirancang untuk mempermudah proses pembagian tagihan (split bill). Dengan memanfaatkan teknologi OCR dan AI, pengguna dapat dengan mudah mengunggah foto struk belanja, dan aplikasi akan secara otomatis mengekstrak item, harga, serta biaya tambahan seperti pajak dan servis.
+Aplikasi web untuk membagi tagihan (split bill) yang dibangun menggunakan Angular dengan desain modern dan responsif.
 
-Aplikasi ini dibangun dengan arsitektur modern, memisahkan antara frontend dan backend untuk skalabilitas dan kemudahan pengelolaan.
+## 🚀 Teknologi yang Digunakan
 
-## Fitur Utama
+### Frontend Framework
+- **Angular 13.3.0** - Framework utama untuk membangun aplikasi web
+- **TypeScript 4.6.2** - Bahasa pemrograman yang digunakan
+- **SCSS** - Preprocessor CSS untuk styling yang lebih fleksibel
 
-- **Login & Registrasi Pengguna:** Sistem autentikasi aman untuk melindungi data transaksi.
-- **Upload Struk via Gambar:** Pengguna dapat mengunggah foto struk dari galeri atau kamera.
-- **Ekstraksi Data Otomatis:** Ditenagai oleh AI (Google Gemini) untuk membaca dan menstrukturkan data dari struk, termasuk item, harga, kuantitas, pajak, dan biaya servis.
-- **Koreksi Manual:** Pengguna memiliki kendali penuh untuk mengoreksi hasil ekstraksi AI jika terjadi ketidakakuratan.
-- **Pembagian Tagihan Interaktif:** Antarmuka yang mudah digunakan untuk menambah anggota dan mengalokasikan setiap item belanja.
-- **Pembagian Biaya Tambahan:** Opsi untuk membagi pajak dan biaya servis secara adil (rata atau proporsional).
-- **Riwayat Transaksi:** Semua transaksi dan hasil pembagiannya disimpan, lengkap dengan gambar struk asli untuk referensi di kemudian hari.
-- **Desain Responsif & PWA:** Pengalaman pengguna yang optimal di desktop maupun mobile, serta kemampuan untuk di-install di layar utama perangkat seperti aplikasi native.
+### UI Framework & Styling
+- **Tailwind CSS 3.4.17** - Framework CSS utility-first untuk styling yang cepat dan konsisten
+- **PostCSS 8.5.6** - Tool untuk memproses CSS
+- **Autoprefixer 10.4.21** - Plugin untuk menambahkan vendor prefixes secara otomatis
 
-## Tech Stack & Arsitektur
+### Testing & Development Tools
+- **Angular CLI 13.0.0** - Command line interface untuk Angular
+- **Karma 6.3.0** - Test runner untuk unit testing
+- **Jasmine 4.0.0** - Testing framework
+- **RxJS 7.5.0** - Library untuk reactive programming
 
-Aplikasi ini dibangun menggunakan tumpukan teknologi berbasis TypeScript yang modern dan efisien.
+### Build Tools
+- **Angular DevKit Build Angular 13.3.11** - Build system untuk Angular
+- **Zone.js 0.11.4** - Library untuk async operations
 
-### Frontend (Repositori Ini)
+## 📋 Fitur Utama
 
-- **Framework:** **Angular 13**
-- **Styling:** **Tailwind CSS 3**
-- **Manajemen State:** RxJS & Angular Services
-- **Fitur Tambahan:**
-  - **Progressive Web App (PWA):** Menggunakan `@angular/pwa` untuk fungsionalitas offline dan *installable*.
-  - **HTTP Client:** `HttpClientModule` dengan `HttpInterceptor` untuk manajemen token JWT.
-  - **Routing:** `@angular/router` dengan *lazy loading* untuk performa optimal.
-- **Deployment:** **Netlify**
+- **Authentication** - Login dan register user
+- **Dashboard** - Halaman utama aplikasi
+- **Split Bill Management** - Manajemen pembagian tagihan
+- **History Tracking** - Riwayat transaksi dan pembagian tagihan
+- **Responsive Design** - Desain yang responsif untuk berbagai ukuran layar
 
-### Backend
+## 🏗️ Struktur Project
 
-- **Framework:** **NestJS** (Node.js)
-- **Database:** **PostgreSQL** (disediakan oleh Supabase)
-- **Penyimpanan File:** **Supabase Storage**
-- **Autentikasi:** JWT (JSON Web Tokens) dengan Passport.js
-- **OCR (Optical Character Recognition):** **OCR.space API**
-- **AI (Pemrosesan Bahasa):** **Google Gemini 1.5 Flash API**
-- **Deployment:** **Vercel** (sebagai *Serverless Functions*)
+```
+src/
+├── app/
+│   ├── core/           # Services, guards, interceptors
+│   ├── modules/        # Feature modules
+│   │   ├── auth/       # Authentication module
+│   │   └── dashboard/  # Dashboard module
+│   └── shared/         # Shared components
+├── assets/             # Static assets
+└── environments/       # Environment configurations
+```
 
-## Instalasi & Menjalankan Lokal
+## 🚀 Cara Menjalankan Project
 
-1.  **Clone repositori ini:**
-    ```bash
-    git clone [URL_REPOSITORI_ANDA]
-    cd splitbill-frontend
-    ```
+### Prerequisites
+- Node.js (versi 14 atau lebih tinggi)
+- npm atau yarn
 
-2.  **Install dependensi:**
-    ```bash
-    npm install
-    ```
+### Installation
+```bash
+# Clone repository
+git clone <repository-url>
+cd splitbill-frontend
 
-3.  **Siapkan Environment Variables:**
-    Buat file `src/environments/environment.ts` dan pastikan berisi `apiUrl` yang menunjuk ke backend lokal Anda.
-    ```typescript
-    // src/environments/environment.ts
-    export const environment = {
-      production: false,
-      apiUrl: 'http://localhost:3000'
-    };
-    ```
+# Install dependencies
+npm install
+```
 
-4.  **Jalankan aplikasi:**
-    Pastikan backend Anda sudah berjalan, lalu jalankan frontend:
-    ```bash
-    ng serve
-    ```
-    Buka `http://localhost:4200/` di browser Anda.
+### Development
+```bash
+# Jalankan development server
+npm start
+# atau
+ng serve
 
----
+# Buka browser dan akses http://localhost:4200
+```
+
+### Build
+```bash
+# Build untuk production
+npm run build
+
+# Build dengan watch mode
+npm run watch
+```
+
+### Testing
+```bash
+# Jalankan unit tests
+npm test
+# atau
+ng test
+```
+
+## 📱 PWA Features
+
+Project ini dikonfigurasi sebagai Progressive Web App (PWA) dengan fitur:
+- Service Worker untuk offline functionality
+- Responsive design untuk mobile devices
+- Fast loading dan caching
+
+## 🎨 Design System
+
+Project menggunakan Tailwind CSS dengan konfigurasi custom untuk:
+- Color palette yang konsisten
+- Typography system
+- Spacing dan layout utilities
+- Responsive breakpoints
+
+## 📊 Project Architecture
+
+Untuk melihat arsitektur project secara detail, silakan lihat diagram Whimsical:
+**[SplitBill Project PWA Architecture](https://whimsical.com/splitbill-project-pwa-AkUxqyAPrFa78jadgeA1T1)**
+
+## 🤝 Contributing
+
+1. Fork project
+2. Buat feature branch (`git checkout -b feature/AmazingFeature`)
+3. Commit changes (`git commit -m 'Add some AmazingFeature'`)
+4. Push ke branch (`git push origin feature/AmazingFeature`)
+5. Buat Pull Request
+
+## 📄 License
+
+Project ini dilisensikan di bawah MIT License.
+
+## 📞 Support
+
+Jika ada pertanyaan atau masalah, silakan buat issue di repository ini.

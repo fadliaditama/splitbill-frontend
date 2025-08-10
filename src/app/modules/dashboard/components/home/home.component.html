@@ -1,6 +1,6 @@
 <div class="min-h-screen bg-gray-50">
     <header class="bg-white shadow-sm">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-between items-center">
+        <div class="flex justify-between items-center px-4 py-4 mx-auto max-w-7xl sm:px-6 lg:px-8">
             <h1 class="text-2xl font-bold text-gray-900">
                 SplitBill Dashboard
             </h1>
@@ -10,17 +10,17 @@
         </div>
     </header>
 
-    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+    <main class="px-4 py-8 mx-auto max-w-7xl sm:px-6 lg:px-8">
+        <div class="grid grid-cols-1 gap-8 lg:grid-cols-3">
 
-            <div class="lg:col-span-2 space-y-8">
+            <div class="space-y-8 lg:col-span-2">
 
-                <section class="bg-white p-6 rounded-lg shadow">
-                    <h2 class="text-xl font-semibold mb-4">Unggah Struk Baru</h2>
-                    <div class="upload-area border-2 border-dashed border-gray-300 rounded-lg p-8 text-center">
+                <section class="p-6 bg-white rounded-lg shadow">
+                    <h2 class="mb-4 text-xl font-semibold">Unggah Struk Baru</h2>
+                    <div class="p-8 text-center rounded-lg border-2 border-gray-300 border-dashed upload-area">
                         <input type="file" (change)="onFileSelected($event)" accept="image/*" class="hidden" #fileInput>
                         <button (click)="fileInput.click()"
-                            class="bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded-lg transition duration-200">
+                            class="px-4 py-2 font-bold text-white bg-indigo-600 rounded-lg transition duration-200 hover:bg-indigo-700">
                             Pilih Gambar
                         </button>
                         <p *ngIf="selectedFile" class="mt-4 text-gray-600">File dipilih: {{ selectedFile.name }}</p>
@@ -28,31 +28,31 @@
                     </div>
 
                     <div *ngIf="imagePreview" class="mt-6">
-                        <h3 class="font-semibold text-gray-700 mb-2">Pratinjau Gambar:</h3>
-                        <div class="flex justify-center p-2 border border-gray-200 rounded-lg">
+                        <h3 class="mb-2 font-semibold text-gray-700">Pratinjau Gambar:</h3>
+                        <div class="flex justify-center p-2 rounded-lg border border-gray-200">
                             <img [src]="imagePreview" alt="Pratinjau Struk" class="max-h-80 rounded-md">
                         </div>
                     </div>
 
                     <div class="mt-4 text-right">
                         <button (click)="onUpload()" [disabled]="!selectedFile || isLoading"
-                            class="w-full sm:w-auto bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-6 rounded-lg transition duration-200 disabled:bg-gray-400 disabled:cursor-not-allowed">
+                            class="px-6 py-2 w-full font-bold text-white bg-green-500 rounded-lg transition duration-200 sm:w-auto hover:bg-green-600 disabled:bg-gray-400 disabled:cursor-not-allowed">
                             {{ isLoading ? 'Memproses...' : 'Proses Struk' }}
                         </button>
                     </div>
                 </section>
 
                 <section *ngIf="isLoading || uploadResult">
-                    <div *ngIf="isLoading" class="bg-white p-6 rounded-lg shadow text-center">
+                    <div *ngIf="isLoading" class="p-6 text-center bg-white rounded-lg shadow">
                         <p class="text-lg font-medium text-gray-700">Menganalisis Struk Anda... 🤖</p>
-                        <p class="text-gray-500 mt-2">AI sedang bekerja, mohon tunggu sebentar.</p>
+                        <p class="mt-2 text-gray-500">AI sedang bekerja, mohon tunggu sebentar.</p>
                     </div>
 
-                    <div *ngIf="uploadResult" class="bg-white p-6 rounded-lg shadow animate-fade-in">
-                        <h3 class="text-xl font-semibold mb-4">Hasil Pemindaian</h3>
-                        <div class="result-summary mb-4 p-4 bg-gray-50 rounded-md">
-                            <span class="font-bold text-lg">Total Belanja:</span>
-                            <span class="font-bold text-xl text-indigo-600 ml-2">Rp {{ uploadResult.total | number
+                    <div *ngIf="uploadResult" class="p-6 bg-white rounded-lg shadow animate-fade-in">
+                        <h3 class="mb-4 text-xl font-semibold">Hasil Pemindaian</h3>
+                        <div class="p-4 mb-4 bg-gray-50 rounded-md result-summary">
+                            <span class="text-lg font-bold">Total Belanja:</span>
+                            <span class="ml-2 text-xl font-bold text-indigo-600">Rp {{ uploadResult.total | number
                                 }}</span>
                         </div>
                         <div class="table-container">
@@ -68,34 +68,34 @@
                                     <tr *ngFor="let item of uploadResult.items" class="border-b last:border-b-0">
                                         <td class="p-2 w-16">{{ item.quantity }}x</td>
                                         <td class="p-2">{{ item.name }}</td>
-                                        <td class="p-2 text-right font-medium">{{ item.price | number }}</td>
+                                        <td class="p-2 font-medium text-right">{{ item.price | number }}</td>
                                     </tr>
                                 </tbody>
                             </table>
                         </div>
 
                         <details class="mt-4">
-                            <summary class="cursor-pointer text-sm text-gray-500 hover:underline">
+                            <summary class="text-sm text-gray-500 cursor-pointer hover:underline">
                                 Lihat Teks Mentah dari OCR
                             </summary>
                             <pre
-                                class="bg-gray-100 p-4 rounded-md mt-2 text-xs text-gray-600">{{ uploadResult.rawText }}</pre>
+                                class="p-4 mt-2 text-xs text-gray-600 bg-gray-100 rounded-md">{{ uploadResult.rawText }}</pre>
                         </details>
                     </div>
                 </section>
             </div>
 
             <div class="lg:col-span-1">
-                <aside class="bg-white p-6 rounded-lg shadow h-full">
-                    <h2 class="text-xl font-semibold mb-4">Riwayat Transaksi</h2>
+                <aside class="p-6 h-full bg-white rounded-lg shadow">
+                    <h2 class="mb-4 text-xl font-semibold">Riwayat Transaksi</h2>
 
                     <div *ngIf="isLoadingHistory" class="text-center text-gray-500">
                         <p>Memuat riwayat...</p>
                     </div>
 
-                    <div *ngIf="!isLoadingHistory && billsHistory.length > 0" class="transaction-list space-y-4">
+                    <div *ngIf="!isLoadingHistory && billsHistory.length > 0" class="space-y-4 transaction-list">
                         <a *ngFor="let bill of billsHistory" [routerLink]="['/dashboard/history', bill.id]"
-                            class="flex justify-between items-center p-3 bg-gray-50 rounded-md hover:bg-gray-100 cursor-pointer">
+                            class="flex justify-between items-center p-3 bg-gray-50 rounded-md cursor-pointer hover:bg-gray-100">
                             <div>
                                 <p class="font-medium">{{bill.storeName}}</p>
                                 <p class="text-sm text-gray-500">{{ bill.purchaseDate | date:'longDate' }}</p>
@@ -104,7 +104,7 @@
                         </a>
                     </div>
 
-                    <div *ngIf="!isLoadingHistory && billsHistory.length === 0" class="text-center text-gray-400 pt-4">
+                    <div *ngIf="!isLoadingHistory && billsHistory.length === 0" class="pt-4 text-center text-gray-400">
                         <p>Anda belum memiliki riwayat transaksi.</p>
                     </div>
                 </aside>
