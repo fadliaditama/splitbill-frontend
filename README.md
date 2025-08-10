@@ -1,27 +1,73 @@
-# SplitbillFrontend
+# Nobon - Aplikasi Split Bill Cerdas
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 13.3.11.
+Nobon adalah sebuah Progressive Web App (PWA) yang dirancang untuk mempermudah proses pembagian tagihan (split bill). Dengan memanfaatkan teknologi OCR dan AI, pengguna dapat dengan mudah mengunggah foto struk belanja, dan aplikasi akan secara otomatis mengekstrak item, harga, serta biaya tambahan seperti pajak dan servis.
 
-## Development server
+Aplikasi ini dibangun dengan arsitektur modern, memisahkan antara frontend dan backend untuk skalabilitas dan kemudahan pengelolaan.
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+## Fitur Utama
 
-## Code scaffolding
+- **Login & Registrasi Pengguna:** Sistem autentikasi aman untuk melindungi data transaksi.
+- **Upload Struk via Gambar:** Pengguna dapat mengunggah foto struk dari galeri atau kamera.
+- **Ekstraksi Data Otomatis:** Ditenagai oleh AI (Google Gemini) untuk membaca dan menstrukturkan data dari struk, termasuk item, harga, kuantitas, pajak, dan biaya servis.
+- **Koreksi Manual:** Pengguna memiliki kendali penuh untuk mengoreksi hasil ekstraksi AI jika terjadi ketidakakuratan.
+- **Pembagian Tagihan Interaktif:** Antarmuka yang mudah digunakan untuk menambah anggota dan mengalokasikan setiap item belanja.
+- **Pembagian Biaya Tambahan:** Opsi untuk membagi pajak dan biaya servis secara adil (rata atau proporsional).
+- **Riwayat Transaksi:** Semua transaksi dan hasil pembagiannya disimpan, lengkap dengan gambar struk asli untuk referensi di kemudian hari.
+- **Desain Responsif & PWA:** Pengalaman pengguna yang optimal di desktop maupun mobile, serta kemampuan untuk di-install di layar utama perangkat seperti aplikasi native.
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+## Tech Stack & Arsitektur
 
-## Build
+Aplikasi ini dibangun menggunakan tumpukan teknologi berbasis TypeScript yang modern dan efisien.
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+### Frontend (Repositori Ini)
 
-## Running unit tests
+- **Framework:** **Angular 13**
+- **Styling:** **Tailwind CSS 3**
+- **Manajemen State:** RxJS & Angular Services
+- **Fitur Tambahan:**
+  - **Progressive Web App (PWA):** Menggunakan `@angular/pwa` untuk fungsionalitas offline dan *installable*.
+  - **HTTP Client:** `HttpClientModule` dengan `HttpInterceptor` untuk manajemen token JWT.
+  - **Routing:** `@angular/router` dengan *lazy loading* untuk performa optimal.
+- **Deployment:** **Netlify**
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+### Backend
 
-## Running end-to-end tests
+- **Framework:** **NestJS** (Node.js)
+- **Database:** **PostgreSQL** (disediakan oleh Supabase)
+- **Penyimpanan File:** **Supabase Storage**
+- **Autentikasi:** JWT (JSON Web Tokens) dengan Passport.js
+- **OCR (Optical Character Recognition):** **OCR.space API**
+- **AI (Pemrosesan Bahasa):** **Google Gemini 1.5 Flash API**
+- **Deployment:** **Vercel** (sebagai *Serverless Functions*)
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+## Instalasi & Menjalankan Lokal
 
-## Further help
+1.  **Clone repositori ini:**
+    ```bash
+    git clone [URL_REPOSITORI_ANDA]
+    cd splitbill-frontend
+    ```
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+2.  **Install dependensi:**
+    ```bash
+    npm install
+    ```
+
+3.  **Siapkan Environment Variables:**
+    Buat file `src/environments/environment.ts` dan pastikan berisi `apiUrl` yang menunjuk ke backend lokal Anda.
+    ```typescript
+    // src/environments/environment.ts
+    export const environment = {
+      production: false,
+      apiUrl: 'http://localhost:3000'
+    };
+    ```
+
+4.  **Jalankan aplikasi:**
+    Pastikan backend Anda sudah berjalan, lalu jalankan frontend:
+    ```bash
+    ng serve
+    ```
+    Buka `http://localhost:4200/` di browser Anda.
+
+---
