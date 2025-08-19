@@ -46,7 +46,7 @@ export class HomeComponent implements OnInit {
     const file = event.target.files[0];
     if (file) {
       // Validasi ukuran file
-      const fileSizeInMB = file.size / 1024 / 1024;
+      const fileSizeInMB = file.size;
       const maxSizeInMB = 1; // Batas maksimal 1 MB
 
       if (fileSizeInMB > maxSizeInMB) {
