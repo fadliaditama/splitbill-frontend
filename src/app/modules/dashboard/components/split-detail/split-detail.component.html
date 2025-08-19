@@ -23,7 +23,7 @@
             <label for="storeLocation" class="block text-sm font-medium text-gray-700">Lokasi</label>
             <input type="text" id="storeLocation" [(ngModel)]="bill.storeLocation" class="mt-1 w-full p-2 border border-gray-300 rounded-md">
           </div>
-          <div>
+          <div class="flex flex-col">
             <label for="purchaseDate" class="block text-sm font-medium text-gray-700">Tanggal Belanja</label>
             <input type="date" id="purchaseDate" [(ngModel)]="purchaseDateForInput" (ngModelChange)="updateBillDate($event)" class="mt-1 w-full p-2 border border-gray-300 rounded-md">
           </div>
@@ -37,7 +37,7 @@
             <button (click)="removeParticipant(name)" class="ml-2 text-indigo-500 hover:text-indigo-800">&times;</button>
           </span>
         </div>
-        <div class="flex gap-2">
+        <div class="flex items-center gap-2">
           <input 
             [(ngModel)]="newParticipantName"
             (keyup.enter)="addParticipant()"
@@ -45,7 +45,7 @@
             placeholder="Tambah nama teman..."
             class="flex-grow px-4 py-2 rounded-lg bg-gray-100 border border-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500"
           >
-          <button (click)="addParticipant()" class="bg-indigo-600 text-white px-4 py-2 rounded-lg font-semibold hover:bg-indigo-700">Tambah</button>
+          <button (click)="addParticipant()" class="bg-indigo-600 text-white px-4 py-2 rounded-lg font-semibold hover:bg-indigo-700 flex-shrink-0">Tambah</button>
         </div>
       </section>
 
