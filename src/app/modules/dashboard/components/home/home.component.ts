@@ -45,6 +45,18 @@ export class HomeComponent implements OnInit {
   onFileSelected(event: any): void {
     const file = event.target.files[0];
     if (file) {
+      const fileSizeInMB = file.size / 1024 / 1024;
+      const maxSizeInMB = 1; // Batas maksimal 1 MB
+
+      if (fileSizeInMB > maxSizeInMB) {
+        alert(`Ukuran file terlalu besar. Maksimal ${maxSizeInMB} MB.`);
+        // Reset file input
+        event.target.value = null; 
+        this.selectedFile = null;
+        this.imagePreview = null;
+        return; // Hentikan proses
+      }
+
       this.selectedFile = file;
 
       // <-- 2. Tambahkan logika untuk membuat preview
