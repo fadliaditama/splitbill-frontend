@@ -1,5 +1,5 @@
 <div class="min-h-screen bg-gray-100 p-4 sm:p-6 lg:p-8">
-    <div *ngIf="isLoading" class="text-center">Memuat detail tagihan...</div>
+    <div *ngIf="isLoading" class="text-center flex items-center justify-center h-screen">Memuat detail tagihan...</div>
   
     <div *ngIf="!isLoading && bill" class="grid grid-cols-1 lg:grid-cols-2 gap-8 max-w-7xl mx-auto">
       
@@ -125,8 +125,8 @@
         </section>
         
         <div class="pt-6 border-t">
-          <button (click)="saveSplit()" [disabled]="participants.length === 0" class="w-full bg-green-500 hover:bg-green-600 text-white font-bold py-3 px-4 rounded-lg transition duration-200 disabled:bg-gray-400">
-            Simpan Hasil Pembagian
+          <button (click)="saveSplit()" [disabled]="participants.length === 0 || isLoading" class="w-full bg-green-500 hover:bg-green-600 text-white font-bold py-3 px-4 rounded-lg transition duration-200 disabled:bg-gray-400">
+            {{ isLoading ? 'Menyimpan...' : 'Simpan Hasil Pembagian' }}
           </button>
         </div>
   

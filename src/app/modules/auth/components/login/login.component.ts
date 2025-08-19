@@ -11,6 +11,7 @@ import { AuthService } from 'src/app/core/services/auth.service';
 export class LoginComponent implements OnInit {
   loginForm!: FormGroup;
   error: string | null = null;
+  isLoading: boolean = false;
 
   constructor(
     private fb: FormBuilder,
@@ -26,13 +27,20 @@ export class LoginComponent implements OnInit {
   }
 
   onSubmit(): void {
-    if (this.loginForm.invalid) return;
+    if (this.loginForm.invalid || this.isLoading) {
+      return;
+    };
+    this.isLoading = true;
     this.error = null;
-    this.authService.login(this.loginForm.value).subscribe({
-      next: () => this.router.navigate(['/dashboard']),
+    this.authService.login(this.loginForm.value).subscribe({  
+      next: () => {
+        this.isLoading = false;
+        this.router.navigate(['/dashboard']);
+      },
       error: (err) => {
         this.error = 'Email atau password salah.';
         console.error(err);
+        this.isLoading = false;
       },
     });
   }

@@ -28,7 +28,7 @@ interface Bill {
 })
 export class SplitDetailComponent implements OnInit {
   bill: Bill | null = null;
-  isLoading = true;
+  isLoading = false;
 
   participants: string[] = [];
   newParticipantName = '';
@@ -46,6 +46,7 @@ export class SplitDetailComponent implements OnInit {
   ngOnInit(): void {
     const billId = this.route.snapshot.paramMap.get('id');
     if (billId) {
+      this.isLoading = true;
       this.dashboardService.getBillById(billId).subscribe({
         next: (data: Bill) => {
           // Inisialisasi properti 'participants' untuk setiap item
@@ -57,15 +58,14 @@ export class SplitDetailComponent implements OnInit {
 
           this.reconstructStateFromHistory(data);
 
-          this.isLoading = false;
         },
         error: (err) => {
           console.error(err);
-          this.isLoading = false;
           alert('Gagal memuat detail tagihan.');
           this.router.navigate(['/dashboard']);
         }
       });
+      this.isLoading = false;
     }
   }
 
@@ -179,7 +179,8 @@ export class SplitDetailComponent implements OnInit {
   }
 
   saveSplit(): void {
-    if (!this.bill) return;
+    if (!this.bill || this.isLoading) return;
+    this.isLoading = true;
 
     const finalSplitDetails: { [key: string]: { total: number, items: any[] } } = {};
 
@@ -210,12 +211,14 @@ export class SplitDetailComponent implements OnInit {
     
      this.dashboardService.saveSplitDetails(this.bill.id, finalSplitDetails, this.bill.total).subscribe({
       next: () => {
+        this.isLoading = false
         alert('Hasil pembagian berhasil disimpan!');
         this.router.navigate(['/dashboard']);
       },
       error: (err) => {
         console.error('Gagal menyimpan:', err);
         alert('Gagal menyimpan hasil pembagian.');
+        this.isLoading = false;
       }
     });
   }

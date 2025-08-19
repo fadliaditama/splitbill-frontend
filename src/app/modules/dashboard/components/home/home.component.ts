@@ -47,18 +47,16 @@ export class HomeComponent implements OnInit {
     if (file) {
       // Validasi ukuran file
       const fileSizeInMB = file.size;
-      const maxSizeInMB = 1; // Batas maksimal 1 MB
 
-      if (fileSizeInMB > maxSizeInMB) {
-        alert(`Ukuran file terlalu besar. Maksimal ${maxSizeInMB} MB.`);
+      if (fileSizeInMB > 1024 * 1024) {
+        alert(`Ukuran file terlalu besar. Maksimal 1 MB.`);
         // Reset file input dan state
         event.target.value = null; 
         this.selectedFile = null;
         this.imagePreview = null;
-        return; // Hentikan fungsi di sini
+        return;
       }
       
-      // Jika lolos validasi, lanjutkan seperti biasa
       this.selectedFile = file;
       const reader = new FileReader();
       reader.onload = () => {
