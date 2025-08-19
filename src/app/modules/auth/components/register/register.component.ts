@@ -11,6 +11,7 @@ import { AuthService } from 'src/app/core/services/auth.service';
 export class RegisterComponent implements OnInit {
   registerForm!: FormGroup;
   error: string | null = null;
+  isLoading: boolean = false;
   
   constructor(private fb: FormBuilder,
     private authService: AuthService,
@@ -33,7 +34,7 @@ export class RegisterComponent implements OnInit {
   }
 
   onSubmit(): void {
-    if (this.registerForm.invalid) {
+    if (this.registerForm.invalid || this.isLoading) {
       if (this.registerForm.errors?.['mismatch']) {
         this.error = "Konfirmasi password tidak cocok.";
       }
@@ -41,11 +42,14 @@ export class RegisterComponent implements OnInit {
     }
     
     this.error = null;
+    this.isLoading = true;
     this.authService.register(this.registerForm.value).subscribe({
       next: () => {
+        this.isLoading = false;
         this.router.navigate(['/auth/login']);
       },
       error: (error) => {
+        this.isLoading = false;
         this.error = error.error.message || 'Terjadi kesalahan saat registrasi.';
       }
     });

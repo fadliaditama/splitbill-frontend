@@ -48,8 +48,8 @@ export class HomeComponent implements OnInit {
       // Validasi ukuran file
       const fileSizeInMB = file.size;
 
-      if (fileSizeInMB > 1024 * 1024) {
-        alert(`Ukuran file terlalu besar. Maksimal 1 MB.`);
+      if (fileSizeInMB > 2 * 1024 * 1024) {
+        alert(`Ukuran file terlalu besar. Maksimal 2 MB.`);
         // Reset file input dan state
         event.target.value = null; 
         this.selectedFile = null;
