@@ -45,28 +45,26 @@ export class HomeComponent implements OnInit {
   onFileSelected(event: any): void {
     const file = event.target.files[0];
     if (file) {
+      // Validasi ukuran file
       const fileSizeInMB = file.size / 1024 / 1024;
       const maxSizeInMB = 1; // Batas maksimal 1 MB
 
       if (fileSizeInMB > maxSizeInMB) {
         alert(`Ukuran file terlalu besar. Maksimal ${maxSizeInMB} MB.`);
-        // Reset file input
+        // Reset file input dan state
         event.target.value = null; 
         this.selectedFile = null;
         this.imagePreview = null;
-        return; // Hentikan proses
+        return; // Hentikan fungsi di sini
       }
-
+      
+      // Jika lolos validasi, lanjutkan seperti biasa
       this.selectedFile = file;
-
-      // <-- 2. Tambahkan logika untuk membuat preview
       const reader = new FileReader();
       reader.onload = () => {
         this.imagePreview = reader.result;
       };
       reader.readAsDataURL(file);
-
-      // Reset hasil sebelumnya saat file baru dipilih
       this.uploadResult = null;
     }
   }
