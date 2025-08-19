@@ -14,8 +14,7 @@
 
       <section>
         <h3 class="text-lg font-semibold border-b pb-2 mb-4">Detail Struk</h3>
-        <div class="space-y-4">
-          <div>
+        <div class="space-y-4 text-left"> <div>
             <label for="storeName" class="block text-sm font-medium text-gray-700">Nama Toko</label>
             <input type="text" id="storeName" [(ngModel)]="bill.storeName" class="mt-1 w-full p-2 border border-gray-300 rounded-md">
           </div>
@@ -23,7 +22,7 @@
             <label for="storeLocation" class="block text-sm font-medium text-gray-700">Lokasi</label>
             <input type="text" id="storeLocation" [(ngModel)]="bill.storeLocation" class="mt-1 w-full p-2 border border-gray-300 rounded-md">
           </div>
-          <div class="flex flex-col">
+          <div>
             <label for="purchaseDate" class="block text-sm font-medium text-gray-700">Tanggal Belanja</label>
             <input type="date" id="purchaseDate" [(ngModel)]="purchaseDateForInput" (ngModelChange)="updateBillDate($event)" class="mt-1 w-full p-2 border border-gray-300 rounded-md">
           </div>
