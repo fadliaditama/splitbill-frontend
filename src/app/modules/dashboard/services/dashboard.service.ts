@@ -20,12 +20,8 @@ export class DashboardService {
     return this.http.get(`${this.apiUrl}/${id}`);
   }
 
-  saveSplitDetails(id: string, details: any, total: number): Observable<any> {
-    const payload = {
-        splitDetails: details,
-        total: total
-    };
-    return this.http.patch(`${this.apiUrl}/split/${id}`, payload);
+  saveSplitDetails(id: string, data: any): Observable<any> {
+    return this.http.patch(`${this.apiUrl}/split/${id}`, data);
 }
 
   uploadReceipt(file: File): Observable<any> {
