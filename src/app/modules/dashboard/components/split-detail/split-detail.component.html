@@ -1,81 +1,81 @@
-<div class="min-h-screen bg-gray-100 p-4 sm:p-6 lg:p-8">
+<div class="min-h-screen bg-gray-100 p-2 sm:p-4 lg:p-6">
   <div *ngIf="isLoading" class="text-center flex items-center justify-center h-screen">Memuat detail tagihan...</div>
 
-  <div *ngIf="!isLoading && bill" class="grid grid-cols-1 lg:grid-cols-2 gap-8 max-w-7xl mx-auto">
+  <div *ngIf="!isLoading && bill" class="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-8 max-w-7xl mx-auto">
     
-    <aside class="bg-white p-4 rounded-lg shadow-md self-start">
-      <h2 class="text-xl font-bold mb-4">Pratinjau Struk</h2>
-      <div class="image-container overflow-auto max-h-[80vh]">
+    <aside class="bg-white p-3 sm:p-4 rounded-lg shadow-md self-start order-2 lg:order-1">
+      <h2 class="text-lg sm:text-xl font-bold mb-4">Pratinjau Struk</h2>
+      <div class="image-container overflow-auto max-h-[60vh] lg:max-h-[80vh]">
         <img [src]="bill.imageUrl" alt="Gambar Struk" class="w-full h-auto rounded">
       </div>
     </aside>
 
-    <main *ngIf="bill" class="bg-white p-6 rounded-lg shadow-md space-y-8">
+    <main *ngIf="bill" class="bg-white p-3 sm:p-6 rounded-lg shadow-md space-y-6 sm:space-y-8 order-1 lg:order-2">
 
       <section>
-        <h3 class="text-lg font-semibold border-b pb-2 mb-4">Detail Struk</h3>
+        <h3 class="text-base sm:text-lg font-semibold border-b pb-2 mb-4">Detail Struk</h3>
         <div class="space-y-4 text-left"> <div>
-            <label for="storeName" class="block text-sm font-medium text-gray-700">Nama Toko</label>
-            <input type="text" id="storeName" [(ngModel)]="bill.storeName" class="mt-1 w-full p-2 border border-gray-300 rounded-md">
+            <label for="storeName" class="block text-xs sm:text-sm font-medium text-gray-700">Nama Toko</label>
+            <input type="text" id="storeName" [(ngModel)]="bill.storeName" class="mt-1 w-full p-3 sm:p-2 border border-gray-300 rounded-md text-center sm:text-left">
           </div>
           <div>
-            <label for="storeLocation" class="block text-sm font-medium text-gray-700">Lokasi</label>
-            <input type="text" id="storeLocation" [(ngModel)]="bill.storeLocation" class="mt-1 w-full p-2 border border-gray-300 rounded-md">
+            <label for="storeLocation" class="block text-xs sm:text-sm font-medium text-gray-700">Lokasi</label>
+            <input type="text" id="storeLocation" [(ngModel)]="bill.storeLocation" class="mt-1 w-full p-3 sm:p-2 border border-gray-300 rounded-md text-center sm:text-left">
           </div>
           <div>
-            <label for="purchaseDate" class="block text-sm font-medium text-gray-700">Tanggal Belanja</label>
-            <input type="date" id="purchaseDate" [(ngModel)]="purchaseDateForInput" (ngModelChange)="updateBillDate($event)" class="mt-1 w-full p-2 border border-gray-300 rounded-md">
+            <label for="purchaseDate" class="block text-xs sm:text-sm font-medium text-gray-700">Tanggal Belanja</label>
+            <input type="date" id="purchaseDate" [(ngModel)]="purchaseDateForInput" (ngModelChange)="updateBillDate($event)" class="mt-1 w-full p-3 sm:p-2 border border-gray-300 rounded-md text-center sm:text-left">
           </div>
         </div>
       </section>
       <section>
-        <h3 class="text-lg font-semibold border-b pb-2 mb-4">Anggota Patungan</h3>
+        <h3 class="text-base sm:text-lg font-semibold border-b pb-2 mb-4">Anggota Patungan</h3>
         <div class="flex flex-wrap gap-2 mb-4">
-          <span *ngFor="let name of participants" class="flex items-center bg-indigo-100 text-indigo-800 text-sm font-medium px-3 py-1 rounded-full">
+          <span *ngFor="let name of participants" class="flex items-center bg-indigo-100 text-indigo-800 text-xs sm:text-sm font-medium px-2 sm:px-3 py-1 rounded-full">
             {{ name }}
-            <button (click)="removeParticipant(name)" class="ml-2 text-indigo-500 hover:text-indigo-800">&times;</button>
+            <button (click)="removeParticipant(name)" class="ml-1 sm:ml-2 text-indigo-500 hover:text-indigo-800">&times;</button>
           </span>
         </div>
-        <div class="flex items-center gap-2">
+        <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-2">
           <input 
             [(ngModel)]="newParticipantName"
             (keyup.enter)="addParticipant()"
             type="text" 
             placeholder="Tambah nama teman..."
-            class="flex-grow px-4 py-2 rounded-lg bg-gray-100 border border-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+            class="flex-grow px-3 sm:px-4 py-3 sm:py-2 rounded-lg bg-gray-100 border border-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 text-center sm:text-left"
           >
-          <button (click)="addParticipant()" class="bg-indigo-600 text-white px-4 py-2 rounded-lg font-semibold hover:bg-indigo-700 flex-shrink-0">Tambah</button>
+          <button (click)="addParticipant()" class="bg-indigo-600 text-white px-3 sm:px-4 py-3 sm:py-2 rounded-lg font-semibold hover:bg-indigo-700 flex-shrink-0 text-sm sm:text-base">Tambah</button>
         </div>
       </section>
 
       <section>
-        <h3 class="text-lg font-semibold border-b pb-2 mb-4">Biaya Tambahan (Pajak & Servis)</h3>
-        <p class="text-xs text-gray-500 mb-4">AI akan mencoba mengisi otomatis. Jika ada yang salah, silakan koreksi angkanya.</p>
+        <h3 class="text-base sm:text-lg font-semibold border-b pb-2 mb-4">Biaya Tambahan (Pajak & Servis)</h3>
+        <p class="text-xs text-gray-500 mb-4 leading-relaxed">AI akan mencoba mengisi otomatis. Jika ada yang salah, silakan koreksi angkanya.</p>
         <div class="space-y-4">
           <div>
-            <label for="serviceCharge" class="block text-sm font-medium text-gray-700">Biaya Servis</label>
+            <label for="serviceCharge" class="block text-xs sm:text-sm font-medium text-gray-700">Biaya Servis</label>
             <input 
               type="number" 
               id="serviceCharge"
               [(ngModel)]="serviceCharge" 
               (ngModelChange)="calculateSummary()"
-              class="mt-1 w-full p-2 border border-gray-300 rounded-md"
+              class="mt-1 w-full p-3 sm:p-2 border border-gray-300 rounded-md text-center sm:text-left"
             >
           </div>
           <div>
-            <label for="tax" class="block text-sm font-medium text-gray-700">Pajak (PPN/PB1)</label>
+            <label for="tax" class="block text-xs sm:text-sm font-medium text-gray-700">Pajak (PPN/PB1)</label>
             <input 
               type="number" 
               id="tax"
               [(ngModel)]="tax"
               (ngModelChange)="calculateSummary()"
-              class="mt-1 w-full p-2 border border-gray-300 rounded-md"
+              class="mt-1 w-full p-3 sm:p-2 border border-gray-300 rounded-md text-center sm:text-left"
             >
           </div>
         </div>
         <div class="mt-4">
-          <label class="block text-sm font-medium text-gray-700 mb-2">Metode Pembagian Biaya Tambahan:</label>
-          <select [(ngModel)]="splitMethod" (change)="calculateSummary()" class="w-full p-2 border border-gray-300 rounded-md">
+          <label class="block text-xs sm:text-sm font-medium text-gray-700 mb-2">Metode Pembagian Biaya Tambahan:</label>
+          <select [(ngModel)]="splitMethod" (change)="calculateSummary()" class="w-full p-3 sm:p-2 border border-gray-300 rounded-md text-center sm:text-left">
             <option value="proportionally">Dibagi Proporsional (Paling Adil)</option>
             <option value="equally">Dibagi Rata</option>
           </select>
@@ -83,23 +83,23 @@
       </section>
 
       <section *ngIf="participants.length > 0">
-        <h3 class="text-lg font-semibold border-b pb-2 mb-4">Alokasikan Belanjaan</h3>
+        <h3 class="text-base sm:text-lg font-semibold border-b pb-2 mb-4">Alokasikan Belanjaan</h3>
         
         <div class="space-y-4 max-h-[40vh] overflow-y-auto pr-2">
-          <div *ngFor="let item of bill.items; let i = index" class="p-3 border rounded-lg">
+          <div *ngFor="let item of bill.items; let i = index" class="p-2 sm:p-3 border rounded-lg">
             
-            <div class="flex justify-between items-start">
+            <div class="flex flex-col sm:flex-row sm:justify-between sm:items-start gap-2">
               <div class="flex-grow">
-                <p class="font-semibold text-gray-800">{{ item.name }}</p>
-                <p class="font-bold text-indigo-600">Rp {{ item.price | number }}</p>
+                <p class="font-semibold text-gray-800 text-sm sm:text-base">{{ item.name }}</p>
+                <p class="font-bold text-indigo-600 text-sm sm:text-base">Rp {{ item.price | number }}</p>
               </div>
-              <div class="flex space-x-2 flex-shrink-0 ml-2">
-                <button (click)="editItem(i)" class="text-sm text-blue-600 hover:underline">Edit</button>
-                <button (click)="deleteItem(i)" class="text-sm text-red-600 hover:underline">Hapus</button>
+              <div class="flex space-x-2 flex-shrink-0 sm:ml-2">
+                <button (click)="editItem(i)" class="text-xs sm:text-sm text-blue-600 hover:underline">Edit</button>
+                <button (click)="deleteItem(i)" class="text-xs sm:text-sm text-red-600 hover:underline">Hapus</button>
               </div>
             </div>
 
-            <div class="flex flex-wrap gap-x-4 gap-y-2 mt-3">
+            <div class="flex flex-wrap gap-x-2 sm:gap-x-4 gap-y-2 mt-3">
               <label *ngFor="let name of participants" class="flex items-center space-x-2 cursor-pointer">
                 <input 
                   type="checkbox" 
@@ -107,41 +107,41 @@
                   (change)="toggleItemParticipant(item, name)"
                   class="h-4 w-4 rounded text-indigo-600 focus:ring-indigo-500"
                 >
-                <span class="text-sm">{{ name }}</span>
+                <span class="text-xs sm:text-sm">{{ name }}</span>
               </label>
             </div>
           </div>
         </div>
         
         <div class="mt-4">
-          <button (click)="addItem()" class="w-full text-sm border-2 border-dashed border-gray-300 hover:bg-gray-50 py-2 rounded-lg transition">
+          <button (click)="addItem()" class="w-full text-xs sm:text-sm border-2 border-dashed border-gray-300 hover:bg-gray-50 py-2 rounded-lg transition">
             + Tambah Item Manual
           </button>
         </div>
       </section>
 
       <section *ngIf="participants.length > 0">
-        <h3 class="text-lg font-semibold border-b pb-2 mb-4">Ringkasan Tagihan</h3>
+        <h3 class="text-base sm:text-lg font-semibold border-b pb-2 mb-4">Ringkasan Tagihan</h3>
         <div class="space-y-2">
-          <div *ngFor="let name of participants" class="flex justify-between items-center bg-gray-50 p-3 rounded-md">
-            <span class="font-medium">{{ name }}</span>
-            <span class="font-bold text-lg text-green-600">Rp {{ summary[name] | number:'1.0-0' }}</span>
+          <div *ngFor="let name of participants" class="flex justify-between items-center bg-gray-50 p-2 sm:p-3 rounded-md">
+            <span class="font-medium text-sm sm:text-base">{{ name }}</span>
+            <span class="font-bold text-base sm:text-lg text-green-600">Rp {{ summary[name] | number:'1.0-0' }}</span>
           </div>
         </div>
-        <div class="flex justify-between items-center bg-gray-800 text-white p-3 rounded-md mt-4">
-          <label for="grandTotal" class="font-bold">TOTAL KESELURUHAN</label>
-          <input 
-            type="number"
-            id="grandTotal"
-            [(ngModel)]="bill.total"
-            (ngModelChange)="calculateSummary()"
-            class="font-bold text-xl bg-gray-700 text-white text-right w-36 rounded-md border-none"
-          >
+        <div class="flex justify-between items-center bg-gray-800 text-white p-2 sm:p-3 rounded-md mt-4">
+          <label for="grandTotal" class="font-bold text-sm sm:text-base">TOTAL KESELURUHAN</label>
+                      <input 
+              type="number"
+              id="grandTotal"
+              [(ngModel)]="bill.total"
+              (ngModelChange)="calculateSummary()"
+              class="font-bold text-lg sm:text-xl bg-gray-700 text-white text-center sm:text-right w-24 sm:w-36 rounded-md border-none p-2"
+            >
         </div>
       </section>
       
       <div class="pt-6 border-t">
-        <button (click)="saveSplit()" [disabled]="participants.length === 0 || isSaving" class="w-full bg-green-500 hover:bg-green-600 text-white font-bold py-3 px-4 rounded-lg transition duration-200 disabled:bg-gray-400">
+        <button (click)="saveSplit()" [disabled]="participants.length === 0 || isSaving" class="w-full bg-green-500 hover:bg-green-600 text-white font-bold py-3 px-3 sm:px-4 rounded-lg transition duration-200 disabled:bg-gray-400 text-sm sm:text-base">
           {{ isSaving ? 'Menyimpan...' : 'Simpan Hasil Pembagian' }}
         </button>
       </div>
